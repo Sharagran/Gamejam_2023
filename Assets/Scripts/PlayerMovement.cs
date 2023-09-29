@@ -18,6 +18,9 @@ public class PlayerMovement : MonoBehaviour
     private bool _isGrounded;
     private Vector2 _movementInput;
 
+    private Vector2 _smoothedMovementInput;
+    private Vector2 _smoothedMovementVelocity;
+
 
     private void Start()
     {
@@ -28,7 +31,11 @@ public class PlayerMovement : MonoBehaviour
 
     private void FixedUpdate()
     {
-        _rb.velocity = _movementInput * moveSpeed;
+        _smoothedMovementInput = Vector2.SmoothDamp(_smoothedMovementInput, _movementInput, ref _smoothedMovementVelocity, 0.1f);
+
+        //_rb.velocity = _smoothedMovementInput * moveSpeed;
+        // apply x movement
+        _rb.velocity = new Vector2(_smoothedMovementInput.x * moveSpeed, _rb.velocity.y);
     }
 
     private void OnMove(InputValue value)
@@ -39,19 +46,8 @@ public class PlayerMovement : MonoBehaviour
         _isGrounded = Physics.Raycast(castOrigin, Vector3.down, out hit, groundCheckDistance, LayerMask.GetMask("Terrain"));
 
         Vector2 input = value.Get<Vector2>();
-
-        // springen
-        if (input.y > 0.5f && _isGrounded)
-        {
-            // _rb.AddForce(Vector2.up * jumpForce, ForceMode2D.Impulse);
-            Debug.Log("Jump");
-            _animator.SetBool("IsJumping", true);
-        }
-        else if (!_isGrounded)
-        {
-            _animator.SetBool("IsJumping", false);
-        }
-
+        if(invertControls)
+            input *= -1;
         _movementInput = input;
 
         Debug.Log("IsGrounded: " + _isGrounded);
@@ -66,14 +62,16 @@ public class PlayerMovement : MonoBehaviour
             _sr.flipX = false;
 
         // Animationen
-        _animator.SetFloat("Speed", Mathf.Abs(_movementInput.x));
+        _animator.SetFloat("SpeedX", Mathf.Abs(_movementInput.x));
+        _animator.SetFloat("SpeedY", _rb.velocity.y);
 
-
-        // spacebar
-/*        if (Input.GetKey(KeyCode.Space))
-            _animator.SetBool("IsJumping", true);
-        else 
-            _animator.SetBool("IsJumping", false);*/
-        //_animator.SetBool("IsGrounded", _isGrounded);
+        // jump
+        if (Input.GetButtonDown("Jump"))
+        {
+            _rb.AddForce(Vector2.up * jumpForce, ForceMode2D.Impulse);
+            // triger jump animation
+            _animator.SetTrigger("Jump");
+            //_movementInput.y = jumpForce;
+        }
     }
 }
