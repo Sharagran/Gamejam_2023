@@ -5,6 +5,7 @@ using UnityEngine;
 public class PlayerSkills : MonoBehaviour
 {
     public int mana = 100;
+    public int maxMana = 100;
 
     private Animator _animator;
 
