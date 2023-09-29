@@ -3,11 +3,15 @@ using UnityEngine.InputSystem;
 
 public class PlayerMovement : MonoBehaviour
 {
+    [Header("Controls")]
     public float moveSpeed = 5f; // Geschwindigkeit der Bewegung
     public float jumpForce = 5f; // Sprungkraft
+    public bool invertControls = false; // Invertiere die Steuerung
+
+    [Header("Logic")]
     public float groundCheckDistance = 0.9f; // Radius des Kreises, der den Boden checkt
 
-    private Rigidbody _rb;
+    private Rigidbody2D _rb;
     private Animator _animator;
     private SpriteRenderer _sr;
 
@@ -17,7 +21,7 @@ public class PlayerMovement : MonoBehaviour
 
     private void Start()
     {
-        _rb = GetComponent<Rigidbody>();
+        _rb = GetComponent<Rigidbody2D>();
         _animator = GetComponent<Animator>();
         _sr = GetComponent<SpriteRenderer>();
     }
