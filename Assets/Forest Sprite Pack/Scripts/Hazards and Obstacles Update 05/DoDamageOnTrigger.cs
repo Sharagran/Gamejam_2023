@@ -5,7 +5,7 @@ using UnityEngine;
 public class DoDamageOnTrigger : MonoBehaviour
 {
     [SerializeField]
-    float damageValue;
+    float damageValue = 1f;
 
     private void OnCollisionStay2D(Collision2D collision)
     {
