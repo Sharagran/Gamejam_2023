@@ -25,10 +25,18 @@ public class PlayerHealth : MonoBehaviour
 
         Debug.Log("Player received " + damageValue + " damage");
         health -= damageValue;
+        StartCoroutine(invincibilityEffect());
         _invincibilityTimer = invincibilityTime;
 
         if (health <= 0)
             Die();
+    }
+
+    IEnumerator invincibilityEffect()
+    {
+        GetComponent<Animator>().SetLayerWeight(1, 1f);
+        yield return new WaitForSeconds(invincibilityTime);
+        GetComponent<Animator>().SetLayerWeight(1, 0f);
     }
 
     private void Update()
