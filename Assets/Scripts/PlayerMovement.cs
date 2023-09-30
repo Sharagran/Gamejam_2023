@@ -67,5 +67,23 @@ public class PlayerMovement : MonoBehaviour
             // triger jump animation
             _animator.SetTrigger("Jump");
         }
+
+
+        SlopeMovement();
+    }
+
+    private void SlopeMovement()
+    {
+        // make player able to walk up small slopes
+        if (_isGrounded)
+        {
+            _rb.gravityScale = 1;
+            _rb.drag = 5;
+        }
+        else
+        {
+            _rb.gravityScale = 3;
+            _rb.drag = 0;
+        }
     }
 }
