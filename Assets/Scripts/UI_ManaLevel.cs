@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class UI_ManaLevel : MonoBehaviour
 {
@@ -15,6 +16,6 @@ public class UI_ManaLevel : MonoBehaviour
     void Update()
     {
         //Debug.Log((float)_playerSkills.mana / _playerSkills.maxMana);
-        this.transform.localScale = new Vector3((float)_playerSkills.mana / _playerSkills.maxMana, 1f, 1f );
+        this.GetComponent<Image>().fillAmount = (float)_playerSkills.mana / _playerSkills.maxMana;
     }
 }
