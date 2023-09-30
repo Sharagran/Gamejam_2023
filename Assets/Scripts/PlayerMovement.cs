@@ -11,6 +11,9 @@ public class PlayerMovement : MonoBehaviour
     [Header("Logic")]
     public float groundCheckDistance = 0.1f; // Radius des Kreises, der den Boden checkt
 
+    [Header("Debug options")]
+    public bool drawGroundCheck = false;
+
     private Rigidbody2D _rb;
     private Animator _animator;
     private SpriteRenderer _sr;
@@ -69,7 +72,7 @@ public class PlayerMovement : MonoBehaviour
         }
 
 
-        SlopeMovement();
+        //SlopeMovement();
     }
 
     private void SlopeMovement()
@@ -84,6 +87,15 @@ public class PlayerMovement : MonoBehaviour
         {
             _rb.gravityScale = 3;
             _rb.drag = 0;
+        }
+    }
+
+    private void OnDrawGizmos()
+    {
+        if (drawGroundCheck)
+        {
+            Gizmos.color = Color.red;
+            Gizmos.DrawWireCube(_col.bounds.center + new Vector3(0, -_col.bounds.extents.y, 0), _col.bounds.size);
         }
     }
 }
