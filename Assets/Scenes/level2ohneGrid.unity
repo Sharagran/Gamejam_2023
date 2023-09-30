@@ -15547,6 +15547,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: -128.282
       objectReference: {fileID: 0}
+    - target: {fileID: 4990920284387592257, guid: 94c0af67ffff4f140a8777398c638f8c, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5308938738913522925, guid: 94c0af67ffff4f140a8777398c638f8c, type: 3}
       propertyPath: m_Name
       value: Boulder
