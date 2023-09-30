@@ -1,11 +1,12 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Cinemachine;
 
 public class Inverter : MonoBehaviour
 {
-    public bool invertControls = false; // Invertiere die Steuerung
-    public bool invertGravity = false; // Invertiere die Schwerkraft
+    public bool gravityInverted = false;
+    public bool controlsInverted = false;
 
     private GameObject player;
     private GameObject boulder;
@@ -17,19 +18,36 @@ public class Inverter : MonoBehaviour
         boulder = GameObject.Find("Boulder");
     }
 
-    private void FixedUpdate()
+    public void InvertGravity()
     {
-        if (invertGravity)
+        if(gravityInverted)
         {
-            Physics2D.gravity = new Vector2(0, 9.81f);
+            Physics2D.gravity = new Vector2(0, -9.81f);
+            gravityInverted = false;
         }
         else
         {
-            Physics2D.gravity = new Vector2(0, -9.81f);
+            Physics2D.gravity = new Vector2(0, 9.81f);
+            gravityInverted = true;
         }
+    }
 
+    public void InvertControls()
+    {
+        var playerMovement = player.GetComponent<PlayerMovement>();
+        var boulderMovement = boulder.GetComponent<BoulderMovement>();
 
-        player.GetComponent<PlayerMovement>().invertControls = invertControls;
-        //boulder.GetComponent<BoulderMovement>().invertControls = invertControls;
+        if (controlsInverted)
+        {
+            controlsInverted = false;
+            playerMovement.invertControls = false;
+            boulderMovement.invertControls = false;
+        }
+        else
+        {
+            controlsInverted = true;
+            playerMovement.invertControls = true;
+            boulderMovement.invertControls = true;
+        }
     }
 }
