@@ -7,19 +7,34 @@ public class PlayerMovement : MonoBehaviour
     public float moveSpeed = 5f; // Geschwindigkeit der Bewegung
     public float jumpForce = 5f; // Sprungkraft
     public bool invertControls = false; // Invertiere die Steuerung
+    public float _jumpCooldown = 0.5f;
 
     [Header("Logic")]
     public float groundCheckDistance = 0.1f; // Radius des Kreises, der den Boden checkt
 
     [Header("Debug options")]
     public bool drawGroundCheck = false;
+    public bool jumpCooldownIndicator = false;
+
+
+    private bool _isGrounded;
+    private bool _isJumping;
+
+    // jump cooldown
+    private bool _canJump = true;
+    private void ResetJump() => _canJump = true;
 
     private Rigidbody2D _rb;
     private Animator _animator;
     private SpriteRenderer _sr;
     private BoxCollider2D _col;
+    private Inverter _inverter;
 
-    private bool _isGrounded;
+    public bool gravityInverted
+    {
+        get { return _inverter.gravityInverted; }
+    }
+
     private Vector2 _movementInput;
 
     private Vector2 _smoothedMovementInput;
@@ -32,6 +47,7 @@ public class PlayerMovement : MonoBehaviour
         _animator = GetComponent<Animator>();
         _sr = GetComponent<SpriteRenderer>();
         _col = GetComponent<BoxCollider2D>();
+        _inverter = GameObject.Find("GameController").GetComponent<Inverter>();
     }
 
     private void FixedUpdate()
@@ -53,22 +69,27 @@ public class PlayerMovement : MonoBehaviour
     {
         // turn player in right direction
         if (_movementInput.x > 0)
-            _sr.flipX = true;
+            _sr.flipX = true ^ gravityInverted;
         else if (_movementInput.x < 0)
-            _sr.flipX = false;
+            _sr.flipX = false ^ gravityInverted;
 
         // Animationen
         _animator.SetFloat("SpeedX", Mathf.Abs(_movementInput.x));
         _animator.SetFloat("SpeedY", _rb.velocity.y);
 
-        _isGrounded = Physics2D.BoxCast(_col.bounds.center, _col.bounds.size, 0, Vector2.down, groundCheckDistance, LayerMask.GetMask("Terrain"));
+        _isGrounded = Physics2D.BoxCast(_col.bounds.center, _col.bounds.size, 0, gravityInverted ? Vector2.up : Vector2.down, groundCheckDistance, LayerMask.GetMask("Terrain"));
 
         // jump
-        if (Input.GetButtonDown("Jump") && _isGrounded)
+        if (Input.GetButtonDown("Jump") && _isGrounded && _canJump)
         {
-            _rb.AddForce(Vector2.up * jumpForce, ForceMode2D.Impulse);
+            _rb.AddForce(gravityInverted ? Vector2.down : Vector2.up * jumpForce, ForceMode2D.Impulse);
             // triger jump animation
             _animator.SetTrigger("Jump");
+
+            // set jump cooldown
+            _canJump = false;
+            Invoke(nameof(ResetJump), _jumpCooldown);
+
         }
 
 
@@ -92,10 +113,20 @@ public class PlayerMovement : MonoBehaviour
 
     private void OnDrawGizmos()
     {
+        // only execute if game is running
+        if (!Application.isPlaying)
+            return;
+
         if (drawGroundCheck)
         {
-            Gizmos.color = Color.red;
-            Gizmos.DrawWireCube(_col.bounds.center + new Vector3(0, -_col.bounds.extents.y, 0), _col.bounds.size);
+            Gizmos.color = _isGrounded ? Color.green : Color.red;
+            Gizmos.DrawWireCube(_col.bounds.center + new Vector3(0, gravityInverted ? groundCheckDistance : -groundCheckDistance, 0), _col.bounds.size);
+        }
+
+        if (jumpCooldownIndicator)
+        {
+            Gizmos.color = _canJump ? Color.green : Color.red;
+            Gizmos.DrawSphere(_sr.bounds.center + new Vector3(0, 2f, 0), 0.25f);
         }
     }
 }

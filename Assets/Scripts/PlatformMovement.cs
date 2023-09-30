@@ -18,13 +18,13 @@ public class PlatformMovement : MonoBehaviour
 
     private Vector3 direction;
     private Vector3 startPos;
-    
 
     private void Start()
     {
         startPos = transform.position;
 
         direction = startDirection == Direction.Left ? Vector3.left : Vector3.right;
+        
     }
 
     private void Update()
