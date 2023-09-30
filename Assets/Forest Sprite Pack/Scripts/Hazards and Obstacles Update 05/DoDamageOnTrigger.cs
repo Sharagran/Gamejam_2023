@@ -7,7 +7,7 @@ public class DoDamageOnTrigger : MonoBehaviour
     [SerializeField]
     float damageValue;
 
-    private void OnTriggerStay2D(Collider2D collision)
+    private void OnCollisionStay2D(Collision2D collision)
     {
         if (collision.gameObject.name == "Player")
         {

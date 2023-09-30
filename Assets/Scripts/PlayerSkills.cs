@@ -37,7 +37,7 @@ public class PlayerSkills : MonoBehaviour
         string sceneName = UnityEngine.SceneManagement.SceneManager.GetActiveScene().name;
         switch (sceneName)
         {
-            case "Level1":
+            case "level1":
             case "SampleScene":
                 Invoke("RotateUpsideDown", 2f);
                 break;
@@ -66,5 +66,12 @@ public class PlayerSkills : MonoBehaviour
             transform.rotation = Quaternion.Slerp(startRotation, targetRotation, t / duration);
             yield return null;
         }
+    }
+
+    public void AddMana(float mana)
+    {
+        this.mana += (int)mana;
+        if (this.mana > maxMana)
+            this.mana = maxMana;
     }
 }

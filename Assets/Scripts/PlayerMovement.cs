@@ -82,9 +82,7 @@ public class PlayerMovement : MonoBehaviour
         // jump
         if (Input.GetButtonDown("Jump") && _isGrounded && _canJump)
         {
-            _rb.AddForce(gravityInverted ? Vector2.down : Vector2.up * jumpForce, ForceMode2D.Impulse);
-            // triger jump animation
-            _animator.SetTrigger("Jump");
+            OnJumpInputDown(jumpForce);
 
             // set jump cooldown
             _canJump = false;
@@ -94,6 +92,15 @@ public class PlayerMovement : MonoBehaviour
 
 
         //SlopeMovement();
+    }
+
+    public void OnJumpInputDown(float force)
+    {
+        _rb.AddForce(gravityInverted ? Vector2.down : Vector2.up * force, ForceMode2D.Impulse);
+        // triger jump animation
+        _animator.SetTrigger("Jump");
+
+        AudioManager.instance.Play("jump");
     }
 
     private void SlopeMovement()
