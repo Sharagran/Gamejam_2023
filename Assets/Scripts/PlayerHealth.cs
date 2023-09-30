@@ -70,7 +70,7 @@ public class PlayerHealth : MonoBehaviour
         GetComponent<Animator>().Play("Player_Death");
         AudioManager.instance.Play("gameover");
 
-        // death screen overlay
-        // GameObject.Find("DeathScreen").GetComponent<Canvas>().enabled = true;
+        // death screen
+        GameObject.Find("DeathScreen").GetComponent<Canvas>().enabled = true;
     }
 }
