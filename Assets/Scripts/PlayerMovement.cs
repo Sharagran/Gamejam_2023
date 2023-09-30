@@ -78,6 +78,7 @@ public class PlayerMovement : MonoBehaviour
         _animator.SetFloat("SpeedY", _rb.velocity.y);
 
         _isGrounded = Physics2D.BoxCast(_col.bounds.center, _col.bounds.size, 0, gravityInverted ? Vector2.up : Vector2.down, groundCheckDistance, LayerMask.GetMask("Terrain"));
+        _animator.SetBool("IsGrounded", _isGrounded);
 
         // jump
         if (Input.GetButtonDown("Jump") && _isGrounded && _canJump)

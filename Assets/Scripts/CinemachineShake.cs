@@ -14,12 +14,14 @@ public class CinemachineShake : MonoBehaviour
     private GameObject _player;
     private GameObject _boulder;
     private CinemachineVirtualCamera _cinemachineVirtuelCamera;
-
+    private BoulderMovement _boulderMovement;
     // Start is called before the first frame update
     void Start()
     {
         _player = GameObject.Find("Player");
         _boulder = GameObject.Find("Boulder");
+        _boulderMovement = _boulder.GetComponent<BoulderMovement>();
+        
         _cinemachineVirtuelCamera = GetComponent<CinemachineVirtualCamera>();
 
         if (_player == null || _boulder == null)
@@ -32,9 +34,17 @@ public class CinemachineShake : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        float distance = Vector2.Distance(_player.transform.position, _boulder.transform.position);
-        intensity = Mathf.Clamp((1f - (distance / maxDistance)) * 3f, minIntensity, maxIntensity);
+        if (_boulderMovement.isRolling)
+        {
+            float distance = Vector2.Distance(_player.transform.position, _boulder.transform.position);
+            intensity = Mathf.Clamp((1f - (distance / maxDistance)) * 3f, minIntensity, maxIntensity);
 
-        _cinemachineVirtuelCamera.GetCinemachineComponent<CinemachineBasicMultiChannelPerlin>().m_AmplitudeGain = intensity;
+            _cinemachineVirtuelCamera.GetCinemachineComponent<CinemachineBasicMultiChannelPerlin>().m_AmplitudeGain = intensity;
+        }
+        else
+        {
+            _cinemachineVirtuelCamera.GetCinemachineComponent<CinemachineBasicMultiChannelPerlin>().m_AmplitudeGain = 0f;
+        }
+
     }
 }
