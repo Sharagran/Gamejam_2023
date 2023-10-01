@@ -1,6 +1,5 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
-using UnityEngine.Windows;
 
 public class PlayerMovement : MonoBehaviour
 {
@@ -53,18 +52,19 @@ public class PlayerMovement : MonoBehaviour
 
     private void FixedUpdate()
     {
-        if (invertControls)
-            _movementInput = new Vector2(-_movementInput.x, _movementInput.y);
-
-
         _smoothedMovementInput = Vector2.SmoothDamp(_smoothedMovementInput, _movementInput, ref _smoothedMovementVelocity, 0.1f);
         // apply x movement
-        _rb.velocity = new Vector2(_smoothedMovementInput.x * moveSpeed, _rb.velocity.y);
+        float xMovement = _smoothedMovementInput.x * moveSpeed;
+        if(invertControls)
+            xMovement *= -1;
+        _rb.velocity = new Vector2(xMovement, _rb.velocity.y);
     }
 
     private void OnMove(InputValue value)
     {
         Vector2 input = value.Get<Vector2>();
+/*        if(invertControls)
+            input *= -1;*/
         _movementInput = input;
     }
 
@@ -84,7 +84,7 @@ public class PlayerMovement : MonoBehaviour
         _animator.SetBool("IsGrounded", _isGrounded);
 
         // jump
-        if (UnityEngine.Input.GetButtonDown("Jump") && _isGrounded && _canJump)
+        if (Input.GetButtonDown("Jump") && _isGrounded && _canJump)
         {
             OnJumpInputDown(jumpForce);
 
