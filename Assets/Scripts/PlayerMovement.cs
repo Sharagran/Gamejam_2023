@@ -63,8 +63,6 @@ public class PlayerMovement : MonoBehaviour
     private void OnMove(InputValue value)
     {
         Vector2 input = value.Get<Vector2>();
-/*        if(invertControls)
-            input *= -1;*/
         _movementInput = input;
     }
 
@@ -75,6 +73,9 @@ public class PlayerMovement : MonoBehaviour
             _sr.flipX = true ^ gravityInverted;
         else if (_movementInput.x < 0)
             _sr.flipX = false ^ gravityInverted;
+
+        if(invertControls)
+            _sr.flipX = !_sr.flipX;
 
         // Animationen
         _animator.SetFloat("SpeedX", Mathf.Abs(_movementInput.x));
