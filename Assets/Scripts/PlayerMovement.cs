@@ -83,7 +83,7 @@ public class PlayerMovement : MonoBehaviour
         _animator.SetBool("IsGrounded", _isGrounded);
 
         // jump
-        if (Input.GetButtonDown("Jump") && _isGrounded && _canJump)
+        if (UnityEngine.Input.GetButtonDown("Jump") && _isGrounded && _canJump)
         {
             OnJumpInputDown(jumpForce);
 
