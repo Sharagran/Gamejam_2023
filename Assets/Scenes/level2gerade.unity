@@ -13938,6 +13938,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 3970406579133386400, guid: 94c0af67ffff4f140a8777398c638f8c, type: 3}
+      propertyPath: speed
+      value: 1.75
+      objectReference: {fileID: 0}
     - target: {fileID: 4085142170489348442, guid: 94c0af67ffff4f140a8777398c638f8c, type: 3}
       propertyPath: m_LocalPosition.x
       value: -2613.15
@@ -18521,6 +18525,10 @@ PrefabInstance:
       propertyPath: m_Layer
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1570091102256580954, guid: bcafdff92e69f4046b02f9b80bccdedf, type: 3}
+      propertyPath: m_Lens.OrthographicSize
+      value: 15
+      objectReference: {fileID: 0}
     - target: {fileID: 1602588951755432694, guid: bcafdff92e69f4046b02f9b80bccdedf, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
@@ -18601,6 +18609,10 @@ PrefabInstance:
       propertyPath: m_Layer
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4955660438160638043, guid: bcafdff92e69f4046b02f9b80bccdedf, type: 3}
+      propertyPath: orthographic size
+      value: 15
+      objectReference: {fileID: 0}
     - target: {fileID: 5529493700839089382, guid: bcafdff92e69f4046b02f9b80bccdedf, type: 3}
       propertyPath: m_Layer
       value: 0
@@ -18664,6 +18676,10 @@ PrefabInstance:
     - target: {fileID: 8059618115488237808, guid: bcafdff92e69f4046b02f9b80bccdedf, type: 3}
       propertyPath: m_Layer
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8928595931633895173, guid: bcafdff92e69f4046b02f9b80bccdedf, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -2645.33
       objectReference: {fileID: 0}
     - target: {fileID: 8968434328375512052, guid: bcafdff92e69f4046b02f9b80bccdedf, type: 3}
       propertyPath: mana

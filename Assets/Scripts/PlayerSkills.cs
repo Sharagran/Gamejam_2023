@@ -7,7 +7,6 @@ public class PlayerSkills : MonoBehaviour
 {
     public int mana = 100;
     public int maxMana = 100;
-    public float gravityInversionDuration = 5f;
     public float controlsInversionDuration = 5f;
 
     private Animator _animator;
@@ -44,8 +43,6 @@ public class PlayerSkills : MonoBehaviour
             case "level1":
             case "SampleScene":
                 Invoke("RotateUpsideDown", 2f);
-                Invoke("SpellBlink", 2f + gravityInversionDuration -1f);
-                Invoke("RotateUpsideDown", 2f + gravityInversionDuration);
                 break;
 
             case "level2gerade":
@@ -54,6 +51,12 @@ public class PlayerSkills : MonoBehaviour
                 Invoke("InvertControls", 2f + controlsInversionDuration);
                 break;
         }
+    }
+
+    public void ResetGravityToNormal()
+    {
+        SpellBlink();
+        Invoke("RotateUpsideDown", 1f);
     }
 
     public void RotateUpsideDown()
