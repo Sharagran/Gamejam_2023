@@ -7,6 +7,7 @@ using UnityEngine.InputSystem.HID;
 public class BoulderMovement2 : MonoBehaviour
 {
     public float speed = 1f; // Geschwindigkeit
+    public float rotationSpeed = 1f; // Rotationsgeschwindigkeit
     public bool invertControls = false; // Invertiere die Steuerung
 
     public bool keepRotating = false; // Rotiere weiterhin
@@ -35,7 +36,7 @@ public class BoulderMovement2 : MonoBehaviour
         Vector2 moveDirectionVector = invertControls ? Vector2.left : Vector2.right;
         Vector3 rotationDirectionVector = invertControls ? Vector3.forward : Vector3.back;
 
-        float rotateSpeed = speed * Time.deltaTime * 360f;
+        float rotateSpeed = speed * Time.deltaTime * 360f * rotationSpeed;
 
         //Create temp vector2 which stores the x value of player input and 0 for y. 
         Vector2 temp = new Vector2(speed * Time.deltaTime * 5, 0);

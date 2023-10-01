@@ -46,6 +46,8 @@ public class PlayerHealth : MonoBehaviour
 
         if (_isDead && Input.GetKeyDown(KeyCode.R))
         {
+            // gravity reload bug
+            Physics2D.gravity = new Vector2(0, -9.81f);
             // reload scene
             UnityEngine.SceneManagement.SceneManager.LoadScene(UnityEngine.SceneManagement.SceneManager.GetActiveScene().name);
         }
@@ -57,12 +59,6 @@ public class PlayerHealth : MonoBehaviour
                 ui_hearts[i].sprite = ui_heart_full;
             else
                 ui_hearts[i].sprite = ui_heart_empty;
-
-            continue;
-            if (i < Mathf.CeilToInt(health))
-                ui_hearts[i].enabled = true;
-            else
-                ui_hearts[i].enabled = false;
         }
     }
 

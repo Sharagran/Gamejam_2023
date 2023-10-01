@@ -15,6 +15,7 @@ GameObject:
   - component: {fileID: 2258575844762626789}
   - component: {fileID: 5711060776774703117}
   - component: {fileID: 3970406579133386400}
+  - component: {fileID: 6310235157688682971}
   m_Layer: 0
   m_Name: Boulder
   m_TagString: Untagged
@@ -32,7 +33,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -3.92, y: 2.74, z: 0}
-  m_LocalScale: {x: 23, y: 16, z: 1}
+  m_LocalScale: {x: 7.80761, y: 10.6805, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 6733897331145788494}
@@ -79,7 +80,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300190, guid: 374e0445c78ff8a498aa23d396168720, type: 3}
+  m_Sprite: {fileID: 21300188, guid: 374e0445c78ff8a498aa23d396168720, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -222,7 +223,7 @@ PolygonCollider2D:
   m_GameObject: {fileID: 5308938738913522925}
   m_Enabled: 1
   m_Density: 1
-  m_Material: {fileID: 6200000, guid: 77355760c4f8cfd40a0a6e08636dd52c, type: 2}
+  m_Material: {fileID: 0}
   m_IncludeLayers:
     serializedVersion: 2
     m_Bits: 0
@@ -249,7 +250,7 @@ PolygonCollider2D:
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 0.97, y: 1.36}
+    oldSize: {x: 2.09, y: 1.37}
     newSize: {x: 4.74, y: 2.99}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
@@ -257,25 +258,33 @@ PolygonCollider2D:
   m_AutoTiling: 0
   m_Points:
     m_Paths:
-    - - {x: 0.48499998, y: -0.08}
-      - {x: 0.48499998, y: 0.21}
-      - {x: 0.45499998, y: 0.31}
-      - {x: 0.405, y: 0.45999998}
-      - {x: 0.275, y: 0.61}
-      - {x: 0.255, y: 0.68}
-      - {x: -0.085, y: 0.68}
-      - {x: -0.225, y: 0.66999996}
-      - {x: -0.36499998, y: 0.63}
-      - {x: -0.48499998, y: 0.48999998}
-      - {x: -0.48499998, y: -0.06}
-      - {x: -0.415, y: -0.38}
-      - {x: -0.375, y: -0.45999998}
-      - {x: -0.205, y: -0.63}
-      - {x: -0.105, y: -0.66999996}
-      - {x: 0.044999998, y: -0.66999996}
-      - {x: 0.205, y: -0.62}
-      - {x: 0.275, y: -0.58}
-      - {x: 0.405, y: -0.35999998}
+    - - {x: 0.45499998, y: -0.565}
+      - {x: 0.625, y: -0.525}
+      - {x: 0.835, y: -0.36499998}
+      - {x: 0.85499996, y: -0.315}
+      - {x: 0.85499996, y: 0.015}
+      - {x: 0.84499997, y: 0.13499999}
+      - {x: 0.815, y: 0.305}
+      - {x: 0.765, y: 0.48499998}
+      - {x: 0.645, y: 0.585}
+      - {x: 0.505, y: 0.655}
+      - {x: 0.42499998, y: 0.685}
+      - {x: -0.145, y: 0.685}
+      - {x: -0.255, y: 0.66499996}
+      - {x: -0.625, y: 0.545}
+      - {x: -0.815, y: 0.36499998}
+      - {x: -0.955, y: 0.185}
+      - {x: -0.98499995, y: 0.13499999}
+      - {x: -0.98499995, y: 0.015}
+      - {x: -0.97499996, y: -0.055}
+      - {x: -0.945, y: -0.24499999}
+      - {x: -0.865, y: -0.405}
+      - {x: -0.815, y: -0.475}
+      - {x: -0.465, y: -0.685}
+      - {x: -0.125, y: -0.685}
+      - {x: 0.015, y: -0.66499996}
+      - {x: 0.21499999, y: -0.635}
+      - {x: 0.305, y: -0.615}
   m_UseDelaunayMesh: 0
 --- !u!114 &5711060776774703117
 MonoBehaviour:
@@ -304,14 +313,28 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1d10b26eeab6c4a408d5e84c57dbd6ac, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 1
+  speed: 2
+  rotationSpeed: 0.1
   invertControls: 0
-  keepRotating: 0
+  keepRotating: 1
   rayCastOrigin: {fileID: 4085142170489348442}
   playerFeet: {fileID: 6733897331145788494}
   layerMask:
     serializedVersion: 2
     m_Bits: 64
+--- !u!114 &6310235157688682971
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5308938738913522925}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 36e69f7065b5d9c4b8a51d6b693ec1a3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  damageValue: 100000
 --- !u!1 &8200423302032984103
 GameObject:
   m_ObjectHideFlags: 0
