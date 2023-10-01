@@ -54,7 +54,8 @@ public class PlayerMovement : MonoBehaviour
     private void FixedUpdate()
     {
         if (invertControls)
-            _movementInput *= -1;
+            _movementInput = new Vector2(-_movementInput.x, _movementInput.y);
+
 
         _smoothedMovementInput = Vector2.SmoothDamp(_smoothedMovementInput, _movementInput, ref _smoothedMovementVelocity, 0.1f);
         // apply x movement
