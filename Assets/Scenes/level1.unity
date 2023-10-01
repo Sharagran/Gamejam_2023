@@ -32744,6 +32744,14 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2455185690594650884, guid: bcafdff92e69f4046b02f9b80bccdedf, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -335
+      objectReference: {fileID: 0}
+    - target: {fileID: 2455185690594650884, guid: bcafdff92e69f4046b02f9b80bccdedf, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 150
+      objectReference: {fileID: 0}
     - target: {fileID: 4409809730264797694, guid: bcafdff92e69f4046b02f9b80bccdedf, type: 3}
       propertyPath: m_Name
       value: Game_essentials

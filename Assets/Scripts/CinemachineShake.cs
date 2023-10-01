@@ -14,13 +14,13 @@ public class CinemachineShake : MonoBehaviour
     private GameObject _player;
     private GameObject _boulder;
     private CinemachineVirtualCamera _cinemachineVirtuelCamera;
-    private BoulderMovement _boulderMovement;
+    private BoulderMovement2 _boulderMovement;
     // Start is called before the first frame update
     void Start()
     {
         _player = GameObject.Find("Player");
         _boulder = GameObject.Find("Boulder");
-        _boulderMovement = _boulder.GetComponent<BoulderMovement>();
+        _boulderMovement = _boulder.GetComponent<BoulderMovement2>();
         
         _cinemachineVirtuelCamera = GetComponent<CinemachineVirtualCamera>();
 

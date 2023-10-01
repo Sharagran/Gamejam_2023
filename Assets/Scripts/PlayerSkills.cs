@@ -1,11 +1,15 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class PlayerSkills : MonoBehaviour
 {
     public int mana = 100;
     public int maxMana = 100;
+    public float gravityInversionDuration = 5f;
+    public float controlsInversionDuration = 5f;
+
     private Animator _animator;
     private Inverter _inverter;
 
@@ -40,9 +44,14 @@ public class PlayerSkills : MonoBehaviour
             case "level1":
             case "SampleScene":
                 Invoke("RotateUpsideDown", 2f);
+                Invoke("SpellBlink", 2f + gravityInversionDuration -1f);
+                Invoke("RotateUpsideDown", 2f + gravityInversionDuration);
                 break;
 
-            case "Level2":
+            case "level2gerade":
+                Invoke("InvertControls", 2f);
+                Invoke("SpellBlink", 2f + controlsInversionDuration - 1f);
+                Invoke("InvertControls", 2f + controlsInversionDuration);
                 break;
         }
     }
@@ -51,6 +60,40 @@ public class PlayerSkills : MonoBehaviour
     {
         StartCoroutine(RotateUpsideDownCoroutine());
         _inverter.InvertGravity();
+    }
+
+    private void InvertControls()
+    {
+        _inverter.InvertControls();
+    }
+
+    private void SpellBlink()
+    {
+        StartCoroutine(SpellBlinkCoroutine());
+    }
+
+    private IEnumerator SpellBlinkCoroutine()
+    {
+        float t = 0;
+        float duration = 0.5f;
+
+        Image spellBackground = GameObject.Find("Spell").transform.Find("Background").GetComponent<Image>();
+
+        while (t < duration)
+        {
+            t += Time.deltaTime;
+            spellBackground.color = Color.Lerp(Color.white, Color.black, t / duration);
+            yield return null;
+        }
+
+        t = 0;
+        while (t < duration)
+        {
+            t += Time.deltaTime;
+            spellBackground.color = Color.Lerp(Color.black, Color.white, t / duration);
+            yield return null;
+        }
+
     }
 
     private IEnumerator RotateUpsideDownCoroutine()

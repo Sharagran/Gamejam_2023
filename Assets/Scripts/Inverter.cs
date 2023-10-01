@@ -35,7 +35,7 @@ public class Inverter : MonoBehaviour
     public void InvertControls()
     {
         var playerMovement = player.GetComponent<PlayerMovement>();
-        var boulderMovement = boulder.GetComponent<BoulderMovement>();
+        var boulderMovement = boulder.GetComponent<BoulderMovement2>();
 
         if (controlsInverted)
         {

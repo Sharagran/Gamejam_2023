@@ -10,7 +10,15 @@ public class BoulderMovement2 : MonoBehaviour
     public float rotationSpeed = 1f; // Rotationsgeschwindigkeit
     public bool invertControls = false; // Invertiere die Steuerung
 
-    public bool keepRotating = false; // Rotiere weiterhin
+    public bool keepRotating = true; // Rotiere weiterhin
+
+    public bool isRolling
+    {
+        get { return _actualSpeed > 0.25f; }
+    }
+
+    private float _actualSpeed = 0f;
+
 
     //Store transform of raycastOrigin object. Used for raycast in GroundCheckMethod()
     [SerializeField] private Transform rayCastOrigin;
@@ -23,6 +31,35 @@ public class BoulderMovement2 : MonoBehaviour
     [SerializeField] private LayerMask layerMask;
 
     private RaycastHit2D Hit2D;
+    private Rigidbody2D _rigidbody2D;
+
+    private void Awake()
+    {
+        GetComponent<DoDamageOnTrigger>().enabled = false;
+        _rigidbody2D = GetComponent<Rigidbody2D>();
+
+        _rigidbody2D.constraints = RigidbodyConstraints2D.FreezeAll;
+    }
+
+    public void StartBoulder()
+    {
+        _actualSpeed = speed;
+        // audio
+        GetComponent<AudioSource>().Play();
+        GetComponent<DoDamageOnTrigger>().active = true;
+
+        _rigidbody2D.constraints = RigidbodyConstraints2D.None;
+    }
+
+    public void StopBoulder()
+    {
+        _actualSpeed = 0f;
+        // audio
+        GetComponent<AudioSource>().Stop();
+        GetComponent<DoDamageOnTrigger>().active = false;
+
+        _rigidbody2D.constraints = RigidbodyConstraints2D.FreezeAll;
+    }
 
     // Update is called once per frame
     void Update()
@@ -36,10 +73,10 @@ public class BoulderMovement2 : MonoBehaviour
         Vector2 moveDirectionVector = invertControls ? Vector2.left : Vector2.right;
         Vector3 rotationDirectionVector = invertControls ? Vector3.forward : Vector3.back;
 
-        float rotateSpeed = speed * Time.deltaTime * 360f * rotationSpeed;
+        float rotateSpeed = _actualSpeed * Time.deltaTime * 360f * rotationSpeed;
 
         //Create temp vector2 which stores the x value of player input and 0 for y. 
-        Vector2 temp = new Vector2(speed * Time.deltaTime * 5, 0);
+        Vector2 temp = new Vector2(_actualSpeed * Time.deltaTime * 5, 0);
         temp = temp * moveDirectionVector;
         //translate our player transform via the temp vector2 amount
         //transform.Translate(temp);
